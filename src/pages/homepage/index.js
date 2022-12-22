@@ -27,17 +27,17 @@ const Homepage = () => {
     fetchEntries()
   }, [])
 
+  const findSelectedTag = (entry) => {
+    for (let tag of selectedTags) {
+      if (entry.tags.includes(tag)) {
+        return true;
+      }
+    }
+  };
+
 
   useEffect(() => {
-    let allTagFilter = []
-     const filteredEnteries = entries.filter((entry) => entry.tags.includes(...selectedTags))
-    for(let entry of entries){
-     allTagFilter.push({
-      id : entry.id,
-      tags : entry.tags.split(",")
-     })
-    }
-    console.log(allTagFilter)
+    const filteredEnteries = entries.filter((entry) => findSelectedTag(entry));
      if(filteredEnteries.length < 1){
       setFilteredEntries(entries)
      }else {
